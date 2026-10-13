@@ -1,0 +1,14 @@
+{
+    "data_set_one": {
+    "vari_one": "True",
+    "vari_two": "True",
+    "vari_three": "True"
+    },
+
+    "data_set_two": {
+    "vari_one": "False",
+    "vari_two": "False",
+    "vari_three": "False"
+    }
+
+}
