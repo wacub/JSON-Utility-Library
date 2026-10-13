@@ -2,8 +2,8 @@ import os
 import json
 
 def get_directory(filename):
-    file_diretory = os.path.dirname(os.path.abspath(__file__)) + filename
-    return file_diretory
+    file_directory = os.path.dirname(os.path.abspath(__file__)) + filename
+    return file_directory
 
 def load_file(file_directory):
     try:
