@@ -1,16 +1,16 @@
 JSON Utility Library
   A Python utility module for working with JSON configuration files.
 
-Features
+Features:
   Load JSON files
   Validate file access
   Detect empty files
   Modify JSON data (in progress)
   
-Current Status
+Current Status:
   Under development
 
-Planned Features
+Planned Features:
   Update key values
   Add new entries
   Remove entries
@@ -19,6 +19,6 @@ Planned Features
   Easier to implement into existing programs
 
   
-Usage
+Usage:
   None for now
   
