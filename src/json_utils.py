@@ -17,16 +17,27 @@ def load_file(file_directory):
         
     except PermissionError:
         print(f"Invalid Permissions For: {file_directory}")
+        raise PermissionError
         
     except FileNotFoundError:
         print(f"Could Not Find File: {file_directory}")
-
+        raise FileNotFoundError
+    
     except ValueError as e:
         print(e)
+        raise ValueError
 
 def change_data(path, new_value, file_directory):
-    data = load_file(file_directory)
-    current = data
+    try:
+        data = load_file(file_directory)
+        current = data
+
+    except PermissionError:
+        return
+    except FileNotFoundError:
+        return
+    except ValueError:
+        return
 
     try:
         for key in path[:-1]:
@@ -44,3 +55,4 @@ def change_data(path, new_value, file_directory):
 
     except KeyError:
         print(f"Invalid path: {path}")
+
