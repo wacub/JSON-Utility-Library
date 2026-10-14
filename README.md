@@ -6,9 +6,11 @@ A lightweight Python utility library that simplifies loading, editing, and savin
 
 - Load JSON files into Python dictionaries
 - Edit nested JSON values using a path list
+- Create new JSON entries
+- Automatically create missing parent paths when creating entries
 - Automatically save changes to the file
 - Basic file validation and error handling
-
+  
 ## Example JSON File
 
 ```json
@@ -29,7 +31,7 @@ A lightweight Python utility library that simplifies loading, editing, and savin
 ## Example Usage
 
 ```python
-# Import the json_utils module
+# Import the json_utils file
 import json_utils
 
 # Specify the JSON file you want to work with.
@@ -39,17 +41,23 @@ filename = "example_config.json"
 # Generate the full file path for the JSON file.
 file_directory = json_utils.get_directory(filename)
 
-# Load the JSON file into a Python variable.
-data = json_utils.load_file(file_directory)
-
 # Define the path to the value you want to modify.
-path = ["data_set_one", "vari_one"]
+path = ["data_set_two", "vari_one"]
 
 # Set the new value that will replace the current value.
-new_value = "False"
+new_value = "True"
 
 # Apply the change and save the updated JSON file.
-json_utils.change_data(data, path, new_value, file_directory)
+json_utils.change_data(path, new_value, file_directory)
+
+# Set the value that will be assigned to the new entry.
+value = "False"
+
+# Define the path where the new entry will be created.
+path = ["data_set_three", "vari_one"]
+
+# Create the new entry and save it to the JSON file.
+json_utils.create_new_entry(path, value, file_directory)
 ```
 
 ## Available Functions
@@ -72,22 +80,45 @@ Loads a JSON file and returns its contents as a Python dictionary.
 data = json_utils.load_file(file_directory)
 ```
 
-### `change_data(data, path, new_value, file_directory)`
+### `change_data(path, new_value, file_directory)`
 
-Updates a value within the JSON data and saves the changes back to the file.
+Updates an existing value in a JSON file and saves the changes.
 
 ```python
 json_utils.change_data(
-    data,
-    ["data_set_one", "vari_one"],
+    ["data_set_two", "vari_one"],
+    "True",
+    file_directory
+)
+```
+
+### `create_new_entry(path, value, file_directory)`
+
+Creates a new entry in the JSON file.
+
+If parent paths do not exist, they will be created automatically.
+
+```python
+json_utils.create_new_entry(
+    ["data_set_three", "vari_one"],
     "False",
     file_directory
 )
 ```
 
+Result:
+
+```json
+{
+    "data_set_three": {
+        "vari_one": "False"
+    }
+}
+```
+
 ## Understanding Paths
 
-A path is a list of keys that leads to the value you want to modify.
+A path is a list of keys that leads to the location you want to modify or create.
 
 Example JSON:
 
@@ -107,32 +138,58 @@ Path to `volume`:
 ["settings", "audio", "volume"]
 ```
 
-Example update:
+Updating the value:
 
 ```python
 json_utils.change_data(
-    data,
     ["settings", "audio", "volume"],
     50,
     file_directory
 )
 ```
 
+Creating a new entry:
+
+```python
+json_utils.create_new_entry(
+    ["settings", "audio", "mute"],
+    False,
+    file_directory
+)
+```
+
+Result:
+
+```json
+{
+    "settings": {
+        "audio": {
+            "volume": 50,
+            "mute": false
+        }
+    }
+}
+```
+
 ## Error Handling
 
-The library includes checks for:
+The library checks for:
 
 - Missing files
 - Empty files
 - File permission issues
+- Invalid paths when modifying data
+- Duplicate entries when creating data
+
 
 ## Future Improvements
 
-- Add support for creating new keys
-- Add support for deleting keys
-- Improve exception handling
+- Delete existing entries
+- Create new JSON files
+- Return status values instead of printing messages
 - Add type hints
 - Add automated tests
+- Improve exception handling
 
 ## Author
 
