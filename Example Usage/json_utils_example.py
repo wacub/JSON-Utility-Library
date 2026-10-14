@@ -19,3 +19,15 @@ new_value = "True"
 
 # Apply the change and write the updated data to the JSON file.
 json_utils.change_data(path, new_value, file_directory)
+
+
+
+
+# Set the value that will be assigned to the new entry.
+value = "False"
+
+# Define the path where the new entry will be created.
+path = ["data_set_three", "vari_one"]
+
+# Create the new entry and save it to the JSON file.
+json_utils.create_new_entry(path, value, file_directory)
