@@ -14,6 +14,7 @@ def load_file(file_directory):
         with open(file_directory, 'r', encoding='utf-8') as f:
             data = json.load(f)
             return data
+        
     except PermissionError:
         print(f"Invalid Permissions For: {file_directory}")
         
@@ -23,8 +24,10 @@ def load_file(file_directory):
     except ValueError as e:
         print(e)
 
-def change_data(data, path, new_value, file_directory):
+def change_data(path, new_value, file_directory):
+    data = load_file(file_directory)
     current = data
+
     try:
         for key in path[:-1]:
             current = current[key]
@@ -34,8 +37,10 @@ def change_data(data, path, new_value, file_directory):
 
         current[path[-1]] = new_value
 
+        print(data)
         with open(file_directory, 'w') as f:
             json.dump(data, f, indent=4)
+            f.close()
 
     except KeyError:
         print(f"Invalid path: {path}")
