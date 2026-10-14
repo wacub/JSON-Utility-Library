@@ -47,7 +47,6 @@ def change_data(path, new_value, file_directory):
         print(data)
         with open(file_directory, 'w') as f:
             json.dump(data, f, indent=4)
-            f.close()
 
     except KeyError:
         print(f"Invalid path: {path}")
@@ -79,7 +78,6 @@ def create_new_entry(path, value, file_directory):
 
         with open(file_directory, 'w') as f:
             json.dump(data, f, indent=4)
-            f.close()
 
     except KeyError:
         print(f"Invalid Path: {path}")
