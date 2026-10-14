@@ -32,11 +32,7 @@ def change_data(path, new_value, file_directory):
         data = load_file(file_directory)
         current = data
 
-    except PermissionError:
-        return
-    except FileNotFoundError:
-        return
-    except ValueError:
+    except (PermissionError, FileNotFoundError, ValueError):
         return
 
     try:
@@ -55,4 +51,36 @@ def change_data(path, new_value, file_directory):
 
     except KeyError:
         print(f"Invalid path: {path}")
+        return
 
+def create_new_entry(path, value, file_directory):
+    try:
+        data = load_file(file_directory)
+        current = data
+    
+    except (PermissionError, FileNotFoundError, ValueError):
+        return
+
+    try:
+        for key in path[:-1]:
+
+            if key not in current:
+                current[key] = {}
+
+            current = current[key]
+
+        new_key = path[-1]
+
+        if new_key in current:
+            print(f"Entry Already Exists: {path}")
+            return
+
+        current[new_key] = value
+
+        with open(file_directory, 'w') as f:
+            json.dump(data, f, indent=4)
+            f.close()
+
+    except KeyError:
+        print(f"Invalid Path: {path}")
+    
