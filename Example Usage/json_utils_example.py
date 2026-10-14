@@ -8,14 +8,14 @@ filename = "example_config.json"
 # Generate the full file path for the JSON file.
 file_directory = json_utils.get_directory(filename)
 
-# Load the JSON file into a Python variable.
-data = json_utils.load_file(file_directory)
+
+
 
 # Define the path to the value you want to modify.
-path = ["data_set_one", "vari_one"]
+path = ["data_set_two", "vari_one"]
 
 # Set the new value that will replace the current value.
-new_value = "False"
+new_value = "True"
 
 # Apply the change and write the updated data to the JSON file.
-json_utils.change_data(data, path, new_value, file_directory)
+json_utils.change_data(path, new_value, file_directory)
